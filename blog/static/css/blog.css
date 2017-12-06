@@ -1,0 +1,14 @@
+#sidebar
+{
+	position:fixed;
+    top:30px;
+    right:5px;
+  text-align:right;
+    color:#616130;
+    background-size:120px 120px;
+  background:#D1E9E9;
+}
+#content
+{
+	backgrount:#F3F3FA;
+}
