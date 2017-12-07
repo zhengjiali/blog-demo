@@ -1,14 +1,24 @@
 #sidebar
 {
 	position:fixed;
-    top:30px;
-    right:5px;
+  top:30px;
+  right:5px;
   text-align:right;
-    color:#616130;
-    background-size:120px 120px;
-  background:#D1E9E9;
+  color:#c71585;
+  background-size:120px 120px;
+  background:#fff0f5;
 }
 #content
 {
-	backgrount:#F3F3FA;
+  margin-top:100px;
+  margin-bottom:100px;
+  margin-right:50px;
+  margin-left:10px;
+  padding-top:25px;
+  padding-bottom:25px;
+  padding-right:50px;
+  padding-left:50px;
+  border-style:solid;
+  border-width:2px;
+  border-color:grey
 }
