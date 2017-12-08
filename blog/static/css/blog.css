@@ -1,12 +1,14 @@
 #sidebar
 {
-	position:fixed;
+  position:fixed;
   top:30px;
   right:5px;
   text-align:right;
-  color:#c71585;
-  background-size:120px 120px;
-  background:#fff0f5;
+  color:#FFFFCC ;
+  background: url(timg.gif);
+  background-size: 100%;
+  width:220px;
+  height:110px;
 }
 #content
 {
@@ -20,5 +22,5 @@
   padding-left:50px;
   border-style:solid;
   border-width:2px;
-  border-color:grey
+  border-color:grey;
 }

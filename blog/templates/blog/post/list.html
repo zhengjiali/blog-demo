@@ -13,4 +13,7 @@
 </p>
 {{ post.body|truncatewords:30|linebreaks }}
 {% endfor %}
+{% include "pagination.html" with page=posts %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "css/page.css" %}">
 {% endblock %}
