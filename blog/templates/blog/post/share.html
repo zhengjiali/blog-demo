@@ -4,14 +4,24 @@
 {% if sent %}
 <h1>E-mail successfully sent</h1>
 <p>
-	"{{ post.title }}" was successfully sent to {{form.to}}.
+	"{{ post.title }}" was successfully sent to {{form.to}} .
 </p>
 {% else %}
 <h1>Share "{{post.title}}" by e-mail</h1>
 <form action="." method="post">
-	{{ form.as_p }}
+	{% for field in form %}
+	<div>
+		{{ field.label_tag }} 
+		<br>
+		{{ field }}
+		{{ field.errors }}
+
+	</div>
+	{% endfor %}
 	{% csrf_token %}
-	<input type="submit" value="Send e-mail">
+	<input class="submit" type="submit" value="SEND E-MAIL">
 </form>
 {% endif %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "css/tips.css" %}">
 {% endblock %}
