@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#config of external SMTP server
+
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST_USER = 'zhengjiali2014@163.com'
+EMAIL_HOST_PASSWORD = '12281216Zjlq'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+
 
 # Application definition
 
