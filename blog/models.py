@@ -1,7 +1,12 @@
+# coding=utf-8
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from taggit.managers import TaggableManager
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf8') 
 
 # Create your models here.
 class PublishedManager(models.Manager):
@@ -9,6 +14,7 @@ class PublishedManager(models.Manager):
 		return super(PublishedManager, self).get_queryset().filter(status='published')
 
 class Post(models.Model):
+	tags = TaggableManager()
 	STATUS_CHOICES = (
 		('draft','Draft'),
 		('published','Published'),

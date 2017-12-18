@@ -1,10 +1,12 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from .models import Post,Comment
-from django.http import Http404
+from django.http import Http404,HttpResponseRedirect
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView
 from .forms import EmailPostForm,CommentForm
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse  
+
 
 # Create your views here.
 
@@ -36,7 +38,7 @@ def post_share(request,post_id):
 class PostListView(ListView):
 	queryset = Post.published.all()
 	context_object_name = 'posts'
-	paginate_by = 3
+	paginate_by = 10
 	template_name = 'blog/post/list.html'
 
 def post_list(request):
@@ -57,6 +59,7 @@ def post_detail(request,year,month,day,post):
 	try:
 		post = Post.objects.get(slug=post)
 		comments = post.comments.filter(active=True)
+		new_comment = False
 
 		if request.method == 'POST':
 			# A comment was posted
@@ -68,14 +71,14 @@ def post_detail(request,year,month,day,post):
 				new_comment.post=post
 				# Save the comment to the database
 				new_comment.save()
+			# return HttpResponseRedirect(reverse("blog:post_detail",kwargs={'post':post,'comments':comments,'form':comment_form,"new_comment":new_comment}))
 		else:
 			comment_form = CommentForm()
 	except:
-		return Http404
-	# post = get_object_or_404(Post,slug=post,
-	# 	status='published',
-	# 	publish__year=year,
-	# 	publish__month=month,
-	# 	publish__day=day)
-	return render(request,'blog/post/detail.html', 
-		{'post':post,'comments':comments,'comment_form':comment_form})
+		# return Http404
+		return render(request, 'blog/404.html')
+	return render(request,'blog/post/detail.html',{'post':post,'comments':comments,'form':comment_form,'new_comment':new_comment})
+
+
+
+
