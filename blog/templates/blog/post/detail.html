@@ -5,9 +5,21 @@
 <p class="date">
 	Published {{post.publish}} by {{post.author}}
 </p>
+<p>
 {{post.body|linebreaks}}
+</p>
+<h2>Similar posts</h2>
+{% for post in similar_posts %}
+<h3>
+  <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+</h3>
+<p>
+  {{ post.body|truncatechars:100|linebreaks }}
+</p>
+{% empty %}
+There are no similar posts yest.
+{% endfor %}
 {% if new_comment %}
-
 <h2>Your comment has ben added.</h2>
 {% else %}
 <h2>Add a new comment</h2>
@@ -47,6 +59,7 @@
 		Share this post
 	</a>
 </p>
+
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static "css/tips.css" %}">
 <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>

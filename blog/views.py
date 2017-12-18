@@ -6,7 +6,7 @@ from django.views.generic import ListView
 from .forms import EmailPostForm,CommentForm
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse  
-
+from django.db.models import Count
 
 # Create your views here.
 
@@ -41,10 +41,16 @@ class PostListView(ListView):
 	paginate_by = 10
 	template_name = 'blog/post/list.html'
 
-def post_list(request):
+def post_list(request,tag_slug=None):
 	object_list = Post.published.all()
-	paginator = Paginator(object_list, 3) # 3 posts in each page
+	tag = None
 	page = request.GET.get('page')
+	if tag_slug:
+		tag = Post.tags.get(slug=tag_slug)
+		object_list = object_list.filter(tags__in=[tag])
+
+	paginator = Paginator(object_list, 10) # 3 posts in each page
+
 	try:
 		posts = paginator.page(page)
 	except PageNotAnInteger:
@@ -53,7 +59,7 @@ def post_list(request):
 	except EmptyPage:
 		# If page is out of range deliver last page of results
 		posts = paginator.page(paginator.num_pages)
-	return render(request, 'blog/post/list.html',{'page':page,'posts':posts})
+	return render(request, 'blog/post/list.html',{'page':page,'posts':posts,'tag':tag})
 
 def post_detail(request,year,month,day,post):
 	try:
@@ -77,7 +83,10 @@ def post_detail(request,year,month,day,post):
 	except:
 		# return Http404
 		return render(request, 'blog/404.html')
-	return render(request,'blog/post/detail.html',{'post':post,'comments':comments,'form':comment_form,'new_comment':new_comment})
+	post_tags_ids = post.tags.values_list('id',flat=True)
+	similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
+	similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
+	return render(request,'blog/post/detail.html',{'post':post,'comments':comments,'form':comment_form,'new_comment':new_comment,'similar_posts':similar_posts})
 
 
 
