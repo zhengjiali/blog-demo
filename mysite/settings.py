@@ -30,8 +30,8 @@ ALLOWED_HOSTS = []
 #config of external SMTP server
 
 EMAIL_HOST = 'smtp.163.com'
-EMAIL_HOST_USER = 'zhengjiali2014@163.com'
-EMAIL_HOST_PASSWORD = '12281216Zjlq'
+EMAIL_HOST_USER = 'XXXX@163.com'
+EMAIL_HOST_PASSWORD = 'XXXX'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
 
@@ -89,7 +89,7 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME':'mydata',
         'USER':'root',
-        'PASSWORD':'qiqimercy',
+        'PASSWORD':'XXXX',
         'HOST':'localhost',
         'PORT':'3306',
         'OPTIONS': { 'init_command': 'SET default_storage_engine=INNODB,character_set_connection=utf8,collation_connection=utf8_unicode_ci;' },
